@@ -3,14 +3,15 @@ package org.springframework.samples.petclinic.service;
 import org.springframework.samples.petclinic.db.OwnerRepository;
 import org.springframework.samples.petclinic.db.PetRepository;
 import org.springframework.samples.petclinic.db.RevenueRepository;
-import org.springframework.samples.petclinic.db.VetRepository;
+import org.springframework.samples.petclinic.vet.db.VetRepository;
 import org.springframework.samples.petclinic.db.VisitRepository;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.model.Vet;
+import org.springframework.samples.petclinic.vet.model.Vet;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.model.YearlyRevenue;
+import org.springframework.samples.petclinic.vet.service.VetService;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -22,14 +23,14 @@ public class ClinicService {
     private final OwnerRepository owners;
     private final PetRepository pets;
     private final VisitRepository visits;
-    private final VetRepository vets;
     private final RevenueRepository revenueRepository;
+    private final VetService vets;
 
     public ClinicService(
         OwnerRepository owners,
         PetRepository pets,
         VisitRepository visits,
-        VetRepository vets,
+        VetService vets,
         RevenueRepository revenueRepository
     ) {
         this.owners = owners;
@@ -61,7 +62,7 @@ public class ClinicService {
     }
 
     public Collection<Vet> allVets() {
-        return this.vets.findAll();
+        return this.vets.allVets();
     }
 
     public void save(Owner owner) {
