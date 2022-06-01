@@ -23,7 +23,7 @@ import org.springframework.samples.petclinic.model.BaseEntity;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.vet.model.Vet;
+import org.springframework.samples.petclinic.vet.dto.VetDto;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.model.YearlyRevenue;
 import org.springframework.transaction.annotation.Transactional;
@@ -156,17 +156,16 @@ class ClinicServiceTests {
 
     @Test
     void shouldFindVets() {
-        Collection<Vet> vets = service.allVets();
+        Collection<VetDto> vets = service.allVets();
 
         assertThat(vets)
-            .filteredOn(vet -> vet.getId() == 3)
-            .hasSize(1)
-            .first()
-            .hasFieldOrPropertyWithValue("lastName", "Douglas")
-            .hasFieldOrPropertyWithValue("nrOfSpecialties", 2)
-            .extracting(Vet::getSpecialties).asList()
-            .extracting("name")
-            .containsExactly("dentistry", "surgery");
+                .filteredOn(vet -> vet.getLastName().equals("Douglas"))
+                .hasSize(1)
+                .first()
+                .hasFieldOrPropertyWithValue("lastName", "Douglas")
+                .hasFieldOrPropertyWithValue("nrOfSpecialties", 2)
+                .extracting(VetDto::getSpecialties).asList()
+                .containsExactly("dentistry", "surgery");
     }
 
     @Test

@@ -8,6 +8,7 @@ import org.springframework.samples.petclinic.db.VisitRepository;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.vet.dto.VetDto;
 import org.springframework.samples.petclinic.vet.model.Vet;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.model.YearlyRevenue;
@@ -61,7 +62,7 @@ public class ClinicService {
         return visits.findByPetId(petId);
     }
 
-    public Collection<Vet> allVets() {
+    public Collection<VetDto> allVets() {
         return this.vets.allVets();
     }
 
