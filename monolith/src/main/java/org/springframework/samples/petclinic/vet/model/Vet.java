@@ -28,42 +28,6 @@ import javax.validation.constraints.NotEmpty;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 
-/**
- * @author Ken Krebs
- * @author Juergen Hoeller
- * @author Sam Brannen
- * @author Arjen Poutsma
- */
-
-@MappedSuperclass
-class Person extends BaseEntity {
-
-    @Column(name = "first_name")
-    @NotEmpty
-    private String firstName;
-
-    @Column(name = "last_name")
-    @NotEmpty
-    private String lastName;
-
-    public String getFirstName() {
-        return this.firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return this.lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-}
-
 @Entity
 @Table(name = "vets")
 public class Vet extends Person {
