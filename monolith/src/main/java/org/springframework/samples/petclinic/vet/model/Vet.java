@@ -15,22 +15,18 @@
  */
 package org.springframework.samples.petclinic.vet.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
-import org.springframework.samples.petclinic.model.Person;
 
 /**
  * @author Ken Krebs
@@ -38,6 +34,56 @@ import org.springframework.samples.petclinic.model.Person;
  * @author Sam Brannen
  * @author Arjen Poutsma
  */
+
+@MappedSuperclass
+class BaseEntity implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public boolean isNew() {
+        return this.id == null;
+    }
+
+}
+
+@MappedSuperclass
+class Person extends BaseEntity {
+
+    @Column(name = "first_name")
+    @NotEmpty
+    private String firstName;
+
+    @Column(name = "last_name")
+    @NotEmpty
+    private String lastName;
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+}
+
 @Entity
 @Table(name = "vets")
 public class Vet extends Person {
